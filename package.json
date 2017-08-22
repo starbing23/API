@@ -1,7 +1,7 @@
 {
-  "name": "project",
+  "name": "api",
   "version": "0.0.1",
-  "description": "a koa2 project",
+  "description": "bin's api",
   "main": "index.js",
   "scripts": {
     "init_sql": "node ./init/index.js",
@@ -12,7 +12,7 @@
     "start_server": "node ./server/app.js",
     "start": "npm run start_static & npm run start_server"
   },
-  "author": "chenshenhai",
+  "author": "BinWu",
   "license": "MIT",
   "dependencies": {
     "antd": "^2.7.2",
