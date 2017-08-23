@@ -9,24 +9,25 @@ const session = require('koa-session-minimal') //Native Koa 2 session middleware
 const MysqlStore = require('koa-mysql-session') //mysql seesion
 
 const config = require('./../config/config')
-// const routers = require('./routers/index')
+const routers = require('./routers/index')
 
 const app = new Koa();
 
-// // session存储配置
-// const sessionMysqlConfig= {
-//   user: config.database.USERNAME,
-//   password: config.database.PASSWORD,
-//   database: config.database.DATABASE,
-//   host: config.database.HOST,
-// }
+// session存储配置
+const sessionMysqlConfig= {
+  user: config.database.USERNAME,
+  password: config.database.PASSWORD,
+  database: config.database.DATABASE,
+  host: config.database.HOST,
+}
 
 
 // setup session middleware 
-// app.use(session({
-//   key: 'USER_SID',
-//   store: new MysqlStore(sessionMysqlConfig)
-// }))
+// save session in mysqldatabase and set session id to client and save in cookie
+app.use(session({
+  key: 'USER_SID',
+  store: new MysqlStore(sessionMysqlConfig)
+}))
 
 // setup logger middleware
 app.use(koaLogger())
@@ -35,9 +36,9 @@ app.use(koaLogger())
 app.use(bodyParser())
 
 // 配置静态资源加载中间件
-// app.use(koaStatic(
-//   path.join(__dirname , './../static')
-// ))
+app.use(koaStatic(
+  path.join(__dirname , './../static')
+))
 
 // 配置服务端模板渲染引擎中间件
 // app.use(views(path.join(__dirname, './views'), {
@@ -45,7 +46,7 @@ app.use(bodyParser())
 // }))
 
 // 初始化路由中间件
-// app.use(routers.routes()).use(routers.allowedMethods())
+app.use(routers.routes()).use(routers.allowedMethods())
 
 // 监听启动端口
 app.listen( config.port )

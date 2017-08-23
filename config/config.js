@@ -13,10 +13,8 @@ if (process.env.NODE_ENV === 'test') {
     console.log(`Load ${defaultConfig}...`);
     config = require(defaultConfig);
     try {
-        if (fs.statSync(productionConfig).isFile()) {
-            console.log(`Load ${productionConfig}...`);
-            config = Object.assign(config, require(productionConfig));
-        }
+        console.log(`Load ${productionConfig}...`);
+        config = Object.assign(config, require(productionConfig));
     } catch (err) {
         console.log(`Cannot load ${productionConfig}.`);
     }
