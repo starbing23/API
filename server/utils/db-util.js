@@ -65,6 +65,10 @@ let deleteDataById = function( table, id ) {
   return query( _sql, [ table, id ] )
 }
 
+// let deleteDataByAny = function(table, itemKey, itemValue) {
+//   let _sql = "DELETE FROM ?? WHERE ? = ?"
+//   return query(_sql, [table, itemKey, itemValue])
+// }
 
 let select = function( table, keys ) {
   let  _sql =  "SELECT ?? FROM ?? "

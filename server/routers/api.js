@@ -10,8 +10,9 @@ const routers = router
   .get('/user/getUserInfo.json', userInfoController.getLoginUserInfo)
   .post('/user/signIn.json', userInfoController.signIn)
   .post('/user/signUp.json', userInfoController.signUp)
+  .post('/user/logOff.json', userInfoController.logOff)
   .post('/blog/post.json', blogController.postBlog)
-  .get('/blog/:id', blogController.getBlog)
+  .get('/blog/get', blogController.getBlog)
  
   
 module.exports = routers

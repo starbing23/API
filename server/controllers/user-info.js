@@ -15,7 +15,7 @@ module.exports = {
       data: null,
       code: ''
     }
-
+    console.log('signIn formData = ', formData);
     let userResult = await userInfoService.signIn( formData )
 
     if ( userResult ) {
@@ -135,6 +135,19 @@ module.exports = {
     ctx.body = result
   },
 
+  /* logOff */
+  async logOff( ctx ) {
+    let result = {
+      success: true,
+      message: '',
+      data: null,
+      code: '',
+    };
+    ctx.session = null;
+
+   ctx.body = result;
+  },
+
   /**
    * 校验用户是否登录
    * @param  {obejct} ctx 上下文对象
@@ -153,7 +166,7 @@ module.exports = {
       result.code = ''
     }
     return result
-  }
+  },
 
 
 }

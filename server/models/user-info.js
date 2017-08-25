@@ -68,9 +68,6 @@ const user = {
     }
     return result
   },
-
-
-
 }
 
 

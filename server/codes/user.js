@@ -24,6 +24,8 @@ const userCode = {
 
   FAIL_USER_NO_EXIST: '用户不存在',
 
+  FAIL_USER_LOGOFF: 'No more login user with this session'
+
 }
 
 

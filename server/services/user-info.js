@@ -94,7 +94,7 @@ const user = {
     result.success = true
 
     return result
-  }
+  },
 
 }
 
