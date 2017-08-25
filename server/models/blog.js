@@ -18,6 +18,29 @@ const blog = {
         }
 
         return result;
+    },
+
+    async deleteBlog(model) {
+        let _sql = `DELETE from blogs
+            where blogId="${model.id}"
+            limit 1`
+        let result = await dbUtils.query(_sql);
+        if(result.affectedRows > 0) {
+            return true
+        }else {
+            return false
+        }
+    },
+
+    async editBlog(model) {
+        console.log('aaa', model)
+        let _sql = `UPDATE ?? SET ? WHERE blogId = ?`
+        let result = await dbUtils.query(_sql, ['blogs', model, model.blogId]);
+        if(result.affectedRows > 0) {
+            return true
+        }else {
+            return false
+        }
     }
 }
 

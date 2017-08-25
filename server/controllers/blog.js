@@ -30,7 +30,7 @@ module.exports = {
             editable = false,
             result = {
                 success: false,
-                message: '',
+                message: 'Blog not found',
                 data: {
                     editable:false,
                     blog: null,
@@ -49,6 +49,47 @@ module.exports = {
             result.message = 'Get blog success';
             result.data.blog = blog;
         }
+        ctx.body = result;
+    },
+
+    async deleteBlog(ctx) {
+        let session = ctx.session,
+            req_query = ctx.request.query,
+            result = {
+                success: false,
+                message: 'Delete failed',
+                data: null,
+                code: ''
+            }
+        if(session && session.isLogin) {
+            let deleteResult = await blogService.deleteBlog(req_query);
+            if(deleteResult) {
+                result.success = true;
+                result.message = '';
+            }
+        }
+
+        ctx.body = result;
+    },
+
+    async editBlog(ctx) {
+        let session = ctx.session,
+            req_query = ctx.request.query,
+            blogData = ctx.request.body,
+            result = {
+                success: false,
+                message: 'Update failed',
+                data: null,
+                code: ''
+            }
+        if(session && session.isLogin) {
+            let editResult = await blogService.editBlog(req_query, blogData);
+            if(editResult) {
+                result.success = true;
+                result.message = '';
+            }
+        }
+
         ctx.body = result;
     }
 }

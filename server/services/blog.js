@@ -26,6 +26,23 @@ const blog = {
             }
         }
         return blog
+    },
+
+    async deleteBlog(query) {
+        let result = await blogModel.deleteBlog({
+            id: query.id
+        })
+
+        return result
+    },
+
+    async editBlog(query, data) {
+        let result = await blogModel.editBlog({
+            blogId: query.id,
+            title: data.title,
+            body: data.body
+        });
+        return result
     }
 }
 
