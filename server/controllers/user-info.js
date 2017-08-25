@@ -38,7 +38,7 @@ module.exports = {
 
       ctx.redirect('/work')
     } else {
-      if(process.env.NODE_ENV === 'test') {
+      if(process.env.NODE_ENV === 'test' && result.success === true) {
         let session = ctx.session
         session.isLogin = true
         session.userName = userResult.name

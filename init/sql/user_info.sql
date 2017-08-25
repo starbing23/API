@@ -10,5 +10,3 @@ CREATE TABLE   IF NOT EXISTS  `user_info` (
   `level` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-INSERT INTO `user_info` set name='test', email='test@gmail.com', password='testing';
