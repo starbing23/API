@@ -20,7 +20,7 @@ module.exports = {
                 result.message = blogCode.ERROR_SYS
             }
         }
-
+        console.log(result);
         ctx.body = result;
     },
     
@@ -35,7 +35,7 @@ module.exports = {
                     editable:false,
                     blog: null,
                 },
-                code: ''
+                code: '404'
             }
         console.log('getBlog query =', req_query);
         if(session && session.isLogin) {
@@ -48,7 +48,9 @@ module.exports = {
             result.success = true;
             result.message = 'Get blog success';
             result.data.blog = blog;
+            result.code = '200';
         }
+        
         ctx.body = result;
     },
 

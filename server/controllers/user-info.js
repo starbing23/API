@@ -21,6 +21,7 @@ module.exports = {
     if ( userResult ) {
       if ( formData.userName === userResult.name ) {
         result.success = true
+        result.message = 'Welcome back! ' + userResult.name;
       } else {
         result.message = userCode.FAIL_USER_NAME_OR_PASSWORD_ERROR
         result.code = 'FAIL_USER_NAME_OR_PASSWORD_ERROR'
@@ -36,7 +37,7 @@ module.exports = {
       session.userName = userResult.name
       session.userId = userResult.id
 
-      ctx.redirect('/work')
+      // ctx.redirect('/work')
     } else {
       if(process.env.NODE_ENV === 'test' && result.success === true) {
         let session = ctx.session

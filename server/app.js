@@ -5,6 +5,7 @@ const views = require('koa-views')  //template rendering middleware
 const koaStatic = require('koa-static')  //render page in server
 const bodyParser = require('koa-bodyparser')  //relate to http body parser
 const koaLogger = require('koa-logger')  //output log in command
+const cors = require('koa2-cors')  //For CORS in dev env
 const session = require('koa-session-minimal') //Native Koa 2 session middleware
 const MysqlStore = require('koa-mysql-session') //mysql seesion
 
@@ -21,12 +22,20 @@ const sessionMysqlConfig= {
   host: config.database.HOST,
 }
 
-
+const maxAge = 30 * 1000;
 // setup session middleware 
 // save session in mysqldatabase and set session id to client and save in cookie
 app.use(session({
   key: 'USER_SID',
-  store: new MysqlStore(sessionMysqlConfig)
+  store: new MysqlStore(sessionMysqlConfig),
+  cookie: {
+    maxage: '5000'
+  }
+}))
+
+app.use(cors({
+  origin: 'http://localhost:8090',
+  credentials: true,
 }))
 
 // setup logger middleware
