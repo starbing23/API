@@ -16,6 +16,12 @@ const blog = {
         return resultData
     },
 
+    async postImage(imgData) {
+        const imgId = new Date().getTime();
+        let result = await blogModel.postImage(imgData);
+        return result;
+    },
+
     async getBlog(query) {
         let blog = null,
             result = await blogModel.getBlog({
@@ -56,6 +62,10 @@ const blog = {
 
     async getAll(page) {
         let result = await blogModel.getAll(page);
+        console.log(result)
+        result.forEach(function(blog) {
+            delete blog['body'];  
+        });
         return result
     },
 }

@@ -101,7 +101,6 @@ module.exports = {
 
     async postImage(ctx) {
         let session = ctx.session,
-            req_query = ctx.request.query,
             imgData = ctx.request.body,
             result = {
                 success: false,
@@ -111,8 +110,8 @@ module.exports = {
             };
         
         if(session && session.isLogin) {
-            let editResult = await blogService.postImage(req_query, blogData);
-            if(editResult) {
+            let postResult = await blogService.postImage(imgData);
+            if(postResult) {
                 result.success = true;
                 result.message = '';
             }

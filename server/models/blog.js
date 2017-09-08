@@ -6,6 +6,10 @@ const blog = {
         return result
     },
 
+    async postImage(imgData) {
+        
+    },
+
     async getBlog(model) {
         let _sql = `SELECT * from blogs
             where blogId="${model.id}"
