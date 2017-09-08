@@ -22,14 +22,14 @@ const sessionMysqlConfig= {
   host: config.database.HOST,
 }
 
-const maxAge = 30 * 1000;
+const maxAge = 2 * 60 * 60 * 1000;
 // setup session middleware 
 // save session in mysqldatabase and set session id to client and save in cookie
 app.use(session({
   key: 'USER_SID',
   store: new MysqlStore(sessionMysqlConfig),
   cookie: {
-    maxage: '5000'
+    maxage: maxAge
   }
 }))
 

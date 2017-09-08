@@ -7,8 +7,12 @@ const blog = {
         let resultData = await blogModel.postBlog({
             title: blogData.title,
             body: blogData.body,
-            blogId: blogId
+            blogId: blogId,
+            description: blogData.description
         });
+        if(resultData.insertId * 1 > 0) {
+            resultData.blogId = blogId;
+        }
         return resultData
     },
 
@@ -43,7 +47,17 @@ const blog = {
             body: data.body
         });
         return result
-    }
+    },
+
+    async getEdit() {
+        let result = await blogModel.getEdit();
+        return result
+    },
+
+    async getAll(page) {
+        let result = await blogModel.getAll(page);
+        return result
+    },
 }
 
 module.exports = blog

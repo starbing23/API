@@ -9,13 +9,16 @@ module.exports = {
             result = {
                 success: false,
                 message: '',
-                data: null,
+                data: {},
                 code: ''
             }
         if(session && session.isLogin) {
             let blogResult = await blogService.postBlog(blogData);
-            if(blogResult && blogResult.insertId * 1 > 0) {
+            if(blogResult && blogResult.blogId) {
+                const blogId = blogResult.blogId;
+                console.log('Post blog success= ', blogId);
                 result.success = true;
+                result.data.blogId = blogId;
             }else {
                 result.message = blogCode.ERROR_SYS
             }
@@ -84,6 +87,7 @@ module.exports = {
                 data: null,
                 code: ''
             }
+        
         if(session && session.isLogin) {
             let editResult = await blogService.editBlog(req_query, blogData);
             if(editResult) {
@@ -93,5 +97,77 @@ module.exports = {
         }
 
         ctx.body = result;
-    }
+    },
+
+    async postImage(ctx) {
+        let session = ctx.session,
+            req_query = ctx.request.query,
+            imgData = ctx.request.body,
+            result = {
+                success: false,
+                message: 'Image update failed',
+                data: null,
+                code: ''
+            };
+        
+        if(session && session.isLogin) {
+            let editResult = await blogService.postImage(req_query, blogData);
+            if(editResult) {
+                result.success = true;
+                result.message = '';
+            }
+        }
+
+        ctx.body = result;
+    },
+
+    async getEdit(ctx) {
+        let session = ctx.session,
+            editable = false,
+            result = {
+                success: false,
+                message: 'You are not allowed to get edit',
+                data: {
+                    editable:false,
+                    blog: null,
+                },
+                code: '404'
+            }
+        if(session && session.isLogin) {
+            result.data.editable = true;
+            let blog = await blogService.getEdit();
+
+            if(blog) {
+                result.success = true;
+                result.message = 'Get blog success';
+                result.data.blog = blog;
+                result.code = '200';
+            }
+        }
+        
+        ctx.body = result;
+    },
+
+    async getAll(ctx) {
+        let session = ctx.session,
+            page = ctx.request.query.page,
+            result = {
+                success: false,
+                message: 'No more blogs',
+                data: {
+                    blogs: null,
+                },
+                code: '404'
+            }
+        console.log('get blogs = ', page);
+        const blogs = await blogService.getAll(page);
+        if(blogs) {
+            result.success = true;
+            result.message = 'Get blogs success';
+            result.data.blogs = blogs;
+            result.code = '200';
+        }
+        
+        ctx.body = result;
+    },
 }

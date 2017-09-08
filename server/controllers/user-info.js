@@ -160,13 +160,14 @@ module.exports = {
       data: null,
       code: 'FAIL_USER_NO_LOGIN',
     } 
-    let session = ctx.session
+    let session = ctx.session;
     if( session && session.isLogin === true  ) {
       result.success = true
       result.message = ''
       result.code = ''
     }
-    return result
+    
+    ctx.body = result;
   },
 
 

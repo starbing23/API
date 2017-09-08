@@ -11,9 +11,12 @@ const routers = router
   .post('/user/signIn', userInfoController.signIn)
   .post('/user/signUp', userInfoController.signUp)
   .post('/user/logOff', userInfoController.logOff)
+  .get('/user/isLogin', userInfoController.validateLogin)
   .post('/blog/post', blogController.postBlog)
   .get('/blog/get', blogController.getBlog)
+  .get('/blog/getAll', blogController.getAll)
   .delete('/blog/delete', blogController.deleteBlog)
   .put('/blog/edit', blogController.editBlog)
+  .post('/blog/postImage', blogController.postImage)
   
 module.exports = routers
