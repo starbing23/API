@@ -1,2 +1,4 @@
 #Ignore node_module
 node_modules/
+#Ignore album
+album/

@@ -13,6 +13,7 @@ const routers = router
   .post('/user/logOff', userInfoController.logOff)
   .get('/user/isLogin', userInfoController.validateLogin)
   .post('/blog/post', blogController.postBlog)
+  .put('/blog/update', blogController.updateBlog)
   .get('/blog/get', blogController.getBlog)
   .get('/blog/getAll', blogController.getAll)
   .delete('/blog/delete', blogController.deleteBlog)

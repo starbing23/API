@@ -1,3 +1,8 @@
+const Koa = require('koa')
+const views = require('koa-views')
+const path = require('path') 
+const static = require('koa-static')
+const mime = require('mime')
 const blogService = require('./../services/blog')
 const blogCode = require('./../codes/blog')
 
@@ -8,7 +13,7 @@ module.exports = {
             blogData = ctx.request.body,
             result = {
                 success: false,
-                message: '',
+                message: 'You are not login yet!',
                 data: {},
                 code: ''
             }
@@ -19,6 +24,30 @@ module.exports = {
                 console.log('Post blog success= ', blogId);
                 result.success = true;
                 result.data.blogId = blogId;
+                result.message = 'Post success!'
+            }else {
+                result.message = blogCode.ERROR_SYS
+            }
+        }
+        console.log(result);
+        ctx.body = result;
+    },
+
+    async updateBlog(ctx) {
+            let session = ctx.session,
+            blogData = ctx.request.body,
+            result = {
+                success: false,
+                message: 'You are not login yet!',
+                data: {},
+                code: ''
+            }
+        if(session && session.isLogin) {
+            let blogResult = await blogService.updateBlog(blogData);
+            if(blogResult) {
+                console.log('Update blog success!');
+                result.success = true;
+                result.message = 'Update success!'
             }else {
                 result.message = blogCode.ERROR_SYS
             }
@@ -40,7 +69,7 @@ module.exports = {
                 },
                 code: '404'
             }
-        console.log('getBlog query =', req_query);
+
         if(session && session.isLogin) {
             result.data.editable = true;
         }
@@ -101,37 +130,34 @@ module.exports = {
 
     async postImage(ctx) {
         let session = ctx.session,
-            imgData = ctx.request.body,
             result = {
                 success: false,
-                message: 'Image update failed',
+                message: 'Fail',
                 data: null,
                 code: ''
             };
-        
         if(session && session.isLogin) {
-            let postResult = await blogService.postImage(imgData);
-            if(postResult) {
-                result.success = true;
-                result.message = '';
-            }
+            const serverFilePath = path.join(__dirname, './../static/image');
+            result = await blogService.postImage(ctx, {
+                fileType: 'album',
+                path: serverFilePath
+            })
+            console.log('result = ', result)
         }
 
         ctx.body = result;
     },
 
+    parseMime(url) {
+        let extName = path.extname(url);
+        extName = extName ? extName.slice(1) : null;
+        return mimes[extName]
+    },
+
     async getEdit(ctx) {
         let session = ctx.session,
-            editable = false,
-            result = {
-                success: false,
-                message: 'You are not allowed to get edit',
-                data: {
-                    editable:false,
-                    blog: null,
-                },
-                code: '404'
-            }
+            editable = false;
+        
         if(session && session.isLogin) {
             result.data.editable = true;
             let blog = await blogService.getEdit();

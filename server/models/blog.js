@@ -2,12 +2,15 @@ const dbUtils = require('./../utils/db-util')
 
 const blog = {
     async postBlog(model) {
-        let result = dbUtils.insertData( 'blogs', model);
+        let result = dbUtils.insertData('blogs', model);
         return result
     },
 
-    async postImage(imgData) {
+    async updateBlog(model) {
+        let _sql = "UPDATE ?? SET ? WHERE blogId = ?"
+        let result = await dbUtils.query( _sql, [ 'blogs', model, model.blogId ] )
         
+        return result;
     },
 
     async getBlog(model) {
