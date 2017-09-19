@@ -25,12 +25,14 @@ function getSuffixName( fileName ) {
 const blog = {
     async postBlog(blogData) {
         const blogId = new Date().getTime();
+        const like = Math.ceil(Math.random() * 100);
         let resultData = await blogModel.postBlog({
             title: blogData.title,
             body: blogData.body,
             blogId: blogId,
             description: blogData.description,
-            headImg: blogData.headImg
+            headImg: blogData.headImg,
+            like: like,
         });
         if(resultData.insertId * 1 > 0) {
             resultData.blogId = blogId;
@@ -118,12 +120,12 @@ const blog = {
             result = await blogModel.getBlog({
                 id: query.id
             });
-
         if(result) {
             blog = {
                 title: result.title,
                 blogId: result.blogId,
-                body: result.body
+                body: result.body,
+                like: result.like,
             }
         }
         return blog
@@ -158,6 +160,27 @@ const blog = {
             delete blog['body'];  
         });
         return result
+    },
+
+    async likeChanged(params) {
+        let blog = await this.getBlog({
+            id: params.id
+        });
+        if(blog) {
+            let totalLike = blog.like;
+            totalLike = params.like ? totalLike+1 : totalLike -1;
+            if(totalLike < 0) {
+                totalLike = 0;
+            }
+            let resultData = await blogModel.updateBlog({
+                like: totalLike,
+                blogId: blog.blogId
+            });
+            return true
+        }else {
+            return false;
+        }
+        let result = await blogModel.updateBlog
     },
 }
 

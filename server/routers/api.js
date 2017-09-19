@@ -19,5 +19,6 @@ const routers = router
   .delete('/blog/delete', blogController.deleteBlog)
   .put('/blog/edit', blogController.editBlog)
   .post('/blog/postImage', blogController.postImage)
+  .put('/blog/likeChanged', blogController.likeChanged)
   
 module.exports = routers

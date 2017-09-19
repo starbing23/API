@@ -195,4 +195,23 @@ module.exports = {
         
         ctx.body = result;
     },
+
+    async likeChanged(ctx) {
+        let session = ctx.session,
+            params = ctx.request.body,
+            result = {
+                success: false,
+                message: 'Fail',
+                data: null,
+                code: ''
+            };
+        
+        const upDateResult = await blogService.likeChanged(params);
+        if(upDateResult) {
+            result.success = true;
+            result.message = '';
+        }
+
+        ctx.body = result;
+    },
 }
