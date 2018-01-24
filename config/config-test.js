@@ -1,12 +1,12 @@
 const config = {
 
-  port: 3001,
+  port: 3002,
 
   database: {
     DATABASE: 'blog-test',
     USERNAME: 'root',
     PASSWORD: 'wordP@55',
-    PORT: '3306',
+    PORT: '3001',
     HOST: 'localhost'
   }
 }

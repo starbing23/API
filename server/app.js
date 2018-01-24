@@ -20,6 +20,7 @@ const sessionMysqlConfig= {
   password: config.database.PASSWORD,
   database: config.database.DATABASE,
   host: config.database.HOST,
+  port: config.database.PORT,
 }
 
 const maxAge = 2 * 60 * 60 * 1000;
