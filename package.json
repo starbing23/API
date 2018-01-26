@@ -6,12 +6,10 @@
   "scripts": {
     "init_sql": "node ./init/index.js",
     "init_dsql": "set NODE_ENV=test&& node ./init/index.js",
-    "dev": "set NODE_ENV=test&& npm run dev_server & npm run dev_static",
+    "dev": "set NODE_ENV=test&& npm run dev_server",
     "dev_server": "nodemon --harmony ./server/app",
-    "dev_static": "webpack --watch --config ./static/build/webpack.dev.config.js",
-    "start_static": "webpack --config ./static/build/webpack.prod.config.js",
     "start_server": "node ./server/app.js",
-    "start": "npm run start_static & npm run start_server"
+    "start": "npm run start_server"
   },
   "author": "BinWu",
   "license": "MIT",
