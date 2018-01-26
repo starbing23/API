@@ -47,12 +47,12 @@ app.use(bodyParser())
 
 // 配置静态资源加载中间件
 app.use(koaStatic(
-  path.join(__dirname , './../static')
+  path.join(__dirname , './../static/dist')
 ))
 
-app.use(koaStatic(
-  path.join(__dirname , './static')
-))
+// app.use(koaStatic(
+//   path.join(__dirname , './static')
+// ))
 
 // 配置服务端模板渲染引擎中间件
 // app.use(views(path.join(__dirname, './views'), {
