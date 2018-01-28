@@ -30,13 +30,14 @@ module.exports = {
       result.code = 'FAIL_USER_NO_EXIST',
       result.message = userCode.FAIL_USER_NO_EXIST
     }
-
-    if ( formData.source === 'form' && result.success === true ) {
+    console.log(result)
+    if (result.success === true ) {
       let session = ctx.session
       session.isLogin = true
       session.userName = userResult.name
       session.userId = userResult.id
 
+      ctx.body = result;
       // ctx.redirect('/work')
     } else {
       if(process.env.NODE_ENV === 'test' && result.success === true) {

@@ -30,7 +30,7 @@ app.use(session({
   key: 'USER_SID',
   store: new MysqlStore(sessionMysqlConfig),
   cookie: {
-    maxage: maxAge
+    maxAge: maxAge
   }
 }))
 
