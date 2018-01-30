@@ -5,6 +5,7 @@ const static = require('koa-static')
 const mime = require('mime')
 const blogService = require('./../services/blog')
 const blogCode = require('./../codes/blog')
+const isDev = process.env.NODE_ENV === 'test'
 
 module.exports = {
     async postBlog(ctx) {
@@ -137,7 +138,7 @@ module.exports = {
                 code: ''
             };
         if(session && session.isLogin) {
-            const serverFilePath = path.join(__dirname, './../static/image');
+            const serverFilePath = path.join(__dirname, './../../static/dist/image');
             result = await blogService.postImage(ctx, {
                 fileType: 'album',
                 path: serverFilePath
